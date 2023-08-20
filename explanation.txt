@@ -1,0 +1,24 @@
+Explanation:
+
+The move_files function is defined to transfer files from a source S3 bucket in one AWS account to a destination S3 bucket in another AWS account.
+
+Account aliases (accA and accB) are assigned to represent the source and destination accounts for better readability.
+
+Sessions are created for Account A and Account B using the AWS CLI profile names specified (Pratish-source and Pratish-destination, respectively).
+
+S3 clients are created for Account A and Account B using the sessions.
+
+The list_objects_v2 method is called on the Account A S3 client to retrieve a list of objects in the source bucket. The response is stored in the response variable.
+
+The code checks if the 'Contents' key exists in the response. If not, it means the source bucket is empty, and a message is printed indicating that there are no files to move. The function returns at this point to prevent further execution.
+
+If the source bucket is not empty, the objects are extracted from the response variable.
+
+The code iterates over each object in the source bucket and retrieves the object key (path).
+
+The copy_object method is called on the Account B S3 client to copy the object from the source bucket in Account A to the destination bucket in Account B. The object is copied using the same object key.
+
+A success message is printed for each file that is moved, indicating the source and destination accounts and the file's key.
+
+The function is called with the source and destination bucket names to initiate the file transfer.
+
